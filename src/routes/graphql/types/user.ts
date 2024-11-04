@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
 import { GraphQLFloat, GraphQLList, GraphQLObjectType, GraphQLString } from 'graphql';
 import { UUIDType } from './uuid.js';
 import { profileType } from './profile.js';
