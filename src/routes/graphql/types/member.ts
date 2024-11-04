@@ -3,8 +3,8 @@ import { GraphQLEnumType, GraphQLFloat, GraphQLInt, GraphQLObjectType, GraphQLSt
 const memberTypeIdENUM = new GraphQLEnumType({
   name: 'MemberTypeId',
   values: {
-    business: { value: 'BUSINESS' },
-    basic: { value: 'BASIC' },
+    BUSINESS: { value: 'BUSINESS' },
+    BASIC: { value: 'BASIC' },
   },
 });
 
