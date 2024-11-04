@@ -1,10 +1,10 @@
-import { GraphQLEnumType, GraphQLFloat, GraphQLInt, GraphQLObjectType } from 'graphql';
+import { GraphQLEnumType, GraphQLFloat, GraphQLInt, GraphQLObjectType, GraphQLString } from 'graphql';
 
 const memberTypeIdENUM = new GraphQLEnumType({
   name: 'MemberTypeId',
   values: {
-    business: { value: 'business' },
-    basic: { value: 'basic' },
+    business: { value: 'BUSINESS' },
+    basic: { value: 'BASIC' },
   },
 });
 
@@ -12,7 +12,7 @@ const memberType = new GraphQLObjectType({
   name: 'memberType',
   fields: () => ({
     id: {
-      type: memberTypeIdENUM,
+      type: GraphQLString,
     },
     discount: {
       type: GraphQLFloat,
