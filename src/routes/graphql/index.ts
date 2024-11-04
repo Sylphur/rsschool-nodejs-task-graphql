@@ -1,7 +1,6 @@
 import { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox';
 import { createGqlResponseSchema, gqlResponseSchema, schema } from './schemas.js';
 import { FieldNode, graphql, parse, validate } from 'graphql';
-import { PrismaClient } from '@prisma/client';
 import depthLimit from 'graphql-depth-limit';
 import DataLoader from 'dataloader';
 
@@ -10,7 +9,7 @@ type MapKeyT = string | readonly FieldNode[];
 export type DataLoaderMapT = Map<MapKeyT, DataLoader<string, unknown, string>>;
 
 const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
-  const { prisma, httpErrors } = fastify;
+  const { prisma } = fastify;
 
   fastify.route({
     url: '/',
@@ -22,7 +21,6 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
       },
     },
     async handler(req) {
-      // return graphql();
       const source = req.body.query;
       const vars = req.body.variables;
       const validateErrors = validate(schema, parse(source), [depthLimit(5)]);
@@ -36,7 +34,6 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
           dataloaders: new Map<MapKeyT, DataLoader<string, unknown>>(),
         },
       });
-       // console.log(response.data, response.errors);
        return { data: response.data, errors: response.errors };
     },
   });

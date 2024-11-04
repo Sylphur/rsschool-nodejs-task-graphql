@@ -7,7 +7,6 @@ import { postType } from '../types/post.js';
 import { userType } from '../types/user.js';
 import { profileType } from '../types/profile.js';
 import { UUIDType } from '../types/uuid.js';
-import { GraphQLString } from 'graphql';
 import { IPrismaContext } from '../interfaces/prisma/prismaContext.js';
 
 export const putMutations = {

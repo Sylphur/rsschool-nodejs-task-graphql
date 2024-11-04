@@ -52,7 +52,7 @@ const userType = new GraphQLObjectType({
     },
     userSubscribedTo: {
       type: new GraphQLList(userType),
-      resolve: async (root, _args, context: IPrismaContext, info) => {
+      resolve: async (root, _args, context: IPrismaContext) => {
         const { prisma, dataloaders } = context;
         const dl = dataloaders.get('users');
         if (!dl)
@@ -72,7 +72,7 @@ const userType = new GraphQLObjectType({
     },
     subscribedToUser: {
       type: new GraphQLList(userType),
-      resolve: async (root, _args, context: IPrismaContext, info) => {
+      resolve: async (root, _args, context: IPrismaContext) => {
         const { prisma, dataloaders } = context;
         const dl = dataloaders.get('users');
         if (!dl)
