@@ -3,32 +3,32 @@ import { postType } from '../types/post.js';
 import { userType } from '../types/user.js';
 import { profileType } from '../types/profile.js';
 import { memberType } from '../types/member.js';
-import { MyContext } from '../index.js';
 import DataLoader from 'dataloader';
 import {
   ResolveTree,
   parseResolveInfo,
   simplifyParsedResolveInfoFragmentWithType,
 } from 'graphql-parse-resolve-info';
+import { IPrismaContext } from '../interfaces/prisma/prismaContext.js';
 
 export const getQueries = {
   memberTypes: {
     type: new GraphQLList(memberType),
-    resolve: (_root, _args, context: MyContext) => {
+    resolve: (_root, _args, context: IPrismaContext) => {
       const { prisma } = context;
       return prisma.memberType.findMany();
     },
   },
   posts: {
     type: new GraphQLList(postType),
-    resolve: (_root, _args, context: MyContext) => {
+    resolve: (_root, _args, context: IPrismaContext) => {
       const { prisma } = context;
       return prisma.post.findMany();
     },
   },
   users: {
     type: new GraphQLList(userType),
-    resolve: async (_root, _args, context: MyContext, info: GraphQLResolveInfo) => {
+    resolve: async (_root, _args, context: IPrismaContext, info: GraphQLResolveInfo) => {
       const { prisma, dataloaders } = context;
       const parsedResolveInfoFragment = parseResolveInfo(info) as ResolveTree;
       const { fields } = simplifyParsedResolveInfoFragmentWithType(
@@ -57,7 +57,7 @@ export const getQueries = {
   },
   profiles: {
     type: new GraphQLList(profileType),
-    resolve: (_root, _args, context: MyContext) => {
+    resolve: (_root, _args, context: IPrismaContext) => {
       const { prisma } = context;
       return prisma.profile.findMany();
     },

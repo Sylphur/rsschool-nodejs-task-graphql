@@ -1,4 +1,3 @@
-import { MyContext } from '../index.js';
 import { CreatePostInput } from './inputs/createPost.js';
 import { CreateProfileInput } from './inputs/createProfile.js';
 import { CreateUserInput } from './inputs/createUser.js';
@@ -6,6 +5,7 @@ import { CreateUserInput } from './inputs/createUser.js';
 import { postType } from '../types/post.js';
 import { userType } from '../types/user.js';
 import { profileType } from '../types/profile.js';
+import { IPrismaContext } from '../interfaces/prisma/prismaContext.js';
 
 export const postMutations = {
   createPost: {
@@ -15,7 +15,7 @@ export const postMutations = {
         type: CreatePostInput,
       },
     },
-    resolve: async (_root, { dto }, context: MyContext) => {
+    resolve: async (_root, { dto }, context: IPrismaContext) => {
       const { prisma } = context;
       return await prisma.post.create({
         data: dto,
@@ -29,7 +29,7 @@ export const postMutations = {
         type: CreateUserInput,
       },
     },
-    resolve: async (_root, { dto }, context: MyContext) => {
+    resolve: async (_root, { dto }, context: IPrismaContext) => {
       const { prisma } = context;
       return await prisma.user.create({
         data: dto,
@@ -43,7 +43,7 @@ export const postMutations = {
         type: CreateProfileInput,
       },
     },
-    resolve: async (_root, { dto }, context: MyContext) => {
+    resolve: async (_root, { dto }, context: IPrismaContext) => {
       const { prisma } = context;
       return await prisma.profile.create({
         data: dto,

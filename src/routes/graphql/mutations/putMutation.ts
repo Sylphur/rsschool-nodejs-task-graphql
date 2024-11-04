@@ -1,4 +1,3 @@
-import { MyContext } from '../index.js';
 import { ChangePostInput } from './inputs/changePosts.js';
 import { ChangeUserInput } from './inputs/changeUser.js';
 import { ChangeProfileInput } from './inputs/changeProfile.js';
@@ -8,6 +7,7 @@ import { userType } from '../types/user.js';
 import { profileType } from '../types/profile.js';
 import { UUIDType } from '../types/uuid.js';
 import { GraphQLString } from 'graphql';
+import { IPrismaContext } from '../interfaces/prisma/prismaContext.js';
 
 export const putMutations = {
   changePost: {
@@ -20,7 +20,7 @@ export const putMutations = {
         type: UUIDType,
       },
     },
-    resolve: async (_root, { dto, id }, context: MyContext) => {
+    resolve: async (_root, { dto, id }, context: IPrismaContext) => {
       const { prisma } = context;
       return await prisma.post.update({
         where: { id: id },
@@ -38,7 +38,7 @@ export const putMutations = {
         type: UUIDType,
       },
     },
-    resolve: async (_root, { dto, id }, context: MyContext) => {
+    resolve: async (_root, { dto, id }, context: IPrismaContext) => {
       const { prisma } = context;
       return await prisma.user.update({
         where: { id: id },
@@ -56,7 +56,7 @@ export const putMutations = {
         type: UUIDType,
       },
     },
-    resolve: async (_root, { dto, id }, context: MyContext) => {
+    resolve: async (_root, { dto, id }, context: IPrismaContext) => {
       const { prisma } = context;
       return await prisma.profile.update({
         where: { id: id },
@@ -74,7 +74,7 @@ export const putMutations = {
         type: UUIDType,
       },
     },
-    resolve: async (_root, { userId, authorId }, context: MyContext) => {
+    resolve: async (_root, { userId, authorId }, context: IPrismaContext) => {
       const { prisma } = context;
       await prisma.user.update({
         where: {

@@ -2,8 +2,8 @@ import { GraphQLBoolean, GraphQLInt, GraphQLNonNull, GraphQLObjectType } from 'g
 
 import { UUIDType } from './uuid.js';
 import { memberType, memberTypeIdENUM } from './member.js';
-import { MyContext } from '../index.js';
 import DataLoader from 'dataloader';
+import { IPrismaContext } from '../interfaces/prisma/prismaContext.js';
 
 const profileType = new GraphQLObjectType({
   name: 'profileType',
@@ -25,7 +25,7 @@ const profileType = new GraphQLObjectType({
     },
     memberType: {
       type: memberType,
-      resolve: async (root, _args, context: MyContext, info) => {
+      resolve: async (root, _args, context: IPrismaContext, info) => {
         const { prisma, dataloaders } = context;
         let dl = dataloaders.get(info.fieldNodes);
         if (!dl) {

@@ -1,6 +1,6 @@
 import { GraphQLBoolean } from 'graphql';
 import { UUIDType } from '../types/uuid.js';
-import { MyContext } from '../index.js';
+import { IPrismaContext } from '../interfaces/prisma/prismaContext.js';
 
 export const deleteMutations = {
   deletePost: {
@@ -10,7 +10,7 @@ export const deleteMutations = {
         type: UUIDType,
       },
     },
-    resolve: async (_root, { id }, context: MyContext) => {
+    resolve: async (_root, { id }, context: IPrismaContext) => {
       const { prisma } = context;
       await prisma.post.delete({
         where: {
@@ -26,7 +26,7 @@ export const deleteMutations = {
         type: UUIDType,
       },
     },
-    resolve: async (_root, { id }, context: MyContext) => {
+    resolve: async (_root, { id }, context: IPrismaContext) => {
       const { prisma } = context;
       await prisma.profile.delete({
         where: {
@@ -42,7 +42,7 @@ export const deleteMutations = {
         type: UUIDType,
       },
     },
-    resolve: async (_root, { id }, context: MyContext) => {
+    resolve: async (_root, { id }, context: IPrismaContext) => {
       const { prisma } = context;
       await prisma.user.delete({
         where: {
@@ -61,7 +61,7 @@ export const deleteMutations = {
         type: UUIDType,
       },
     },
-    resolve: async (_root, { userId, authorId }, context: MyContext) => {
+    resolve: async (_root, { userId, authorId }, context: IPrismaContext) => {
       const { prisma } = context;
       await prisma.subscribersOnAuthors.delete({
         where: {

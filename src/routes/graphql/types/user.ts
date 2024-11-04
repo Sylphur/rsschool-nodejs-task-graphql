@@ -2,8 +2,9 @@ import { GraphQLFloat, GraphQLList, GraphQLObjectType, GraphQLString } from 'gra
 import { UUIDType } from './uuid.js';
 import { profileType } from './profile.js';
 import { postType } from './post.js';
-import { MyContext, UserPrismaT } from '../index.js';
 import DataLoader from 'dataloader';
+import { IUserPrisma } from '../interfaces/prisma/userPrisma.js';
+import { IPrismaContext } from '../interfaces/prisma/prismaContext.js';
 
 const userType = new GraphQLObjectType({
   name: 'userType',
@@ -19,7 +20,7 @@ const userType = new GraphQLObjectType({
     },
     profile: {
       type: profileType,
-      resolve: async (root, _args, context: MyContext, info) => {
+      resolve: async (root, _args, context: IPrismaContext, info) => {
         const { prisma, dataloaders } = context;
         let dl = dataloaders.get(info.fieldNodes);
         if (!dl) {
@@ -34,7 +35,7 @@ const userType = new GraphQLObjectType({
     },
     posts: {
       type: new GraphQLList(postType),
-      resolve: async (root, _args, context: MyContext, info) => {
+      resolve: async (root, _args, context: IPrismaContext, info) => {
         const { prisma, dataloaders } = context;
         let dl = dataloaders.get(info.fieldNodes);
         if (!dl) {
@@ -49,7 +50,7 @@ const userType = new GraphQLObjectType({
     },
     userSubscribedTo: {
       type: new GraphQLList(userType),
-      resolve: async (root, _args, context: MyContext, info) => {
+      resolve: async (root, _args, context: IPrismaContext, info) => {
         const { prisma, dataloaders } = context;
         const dl = dataloaders.get('users');
         if (!dl)
@@ -62,14 +63,14 @@ const userType = new GraphQLObjectType({
               },
             },
           });
-        const users = (await dl?.load('users')) as UserPrismaT[];
+        const users = (await dl?.load('users')) as IUserPrisma[];
         const user = users.find((u) => u.id === root.id);
         return user!.userSubscribedTo;
       },
     },
     subscribedToUser: {
       type: new GraphQLList(userType),
-      resolve: async (root, _args, context: MyContext, info) => {
+      resolve: async (root, _args, context: IPrismaContext, info) => {
         const { prisma, dataloaders } = context;
         const dl = dataloaders.get('users');
         if (!dl)
@@ -82,7 +83,7 @@ const userType = new GraphQLObjectType({
               },
             },
           });
-        const users = (await dl?.load('users')) as UserPrismaT[];
+        const users = (await dl?.load('users')) as IUserPrisma[];
         const user = users.find((u) => u.id === root.id);
         return user!.subscribedToUser;
       },

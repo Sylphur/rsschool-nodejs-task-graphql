@@ -1,35 +1,13 @@
 import { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox';
 import { createGqlResponseSchema, gqlResponseSchema, schema } from './schemas.js';
-import { FieldNode, graphql, parse, validate, GraphQLSchema } from 'graphql';
+import { FieldNode, graphql, parse, validate } from 'graphql';
 import { PrismaClient } from '@prisma/client';
 import depthLimit from 'graphql-depth-limit';
 import DataLoader from 'dataloader';
 
-export type UserPrismaT = {
-  userSubscribedTo?: {
-    subscriberId: string;
-    authorId: string;
-  }[];
-  subscribedToUser?: {
-    subscriberId: string;
-    authorId: string;
-  }[];
-  id: string;
-  name: string;
-  balance: number;
-};
-
-export type FieldNodeT = {
-  [key: string]: string;
-};
 type MapKeyT = string | readonly FieldNode[];
 
 export type DataLoaderMapT = Map<MapKeyT, DataLoader<string, unknown, string>>;
-
-export type MyContext = {
-  prisma: PrismaClient;
-  dataloaders: DataLoaderMapT;
-};
 
 const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
   const { prisma, httpErrors } = fastify;

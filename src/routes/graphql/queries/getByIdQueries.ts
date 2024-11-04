@@ -4,7 +4,7 @@ import { userType } from '../types/user.js';
 import { UUIDType } from '../types/uuid.js';
 import { profileType } from '../types/profile.js';
 import { memberType, memberTypeIdENUM } from '../types/member.js';
-import { MyContext } from '../index.js';
+import { IPrismaContext } from '../interfaces/prisma/prismaContext.js';
 
 export const getByIdQueries = {
   memberType: {
@@ -14,7 +14,7 @@ export const getByIdQueries = {
         type: new GraphQLNonNull(memberTypeIdENUM),
       },
     },
-    resolve: async (_root, { id }, context: MyContext) => {
+    resolve: async (_root, { id }, context: IPrismaContext) => {
       const { prisma } = context;
       return await prisma.memberType.findUnique({
         where: {
@@ -30,7 +30,7 @@ export const getByIdQueries = {
         type: new GraphQLNonNull(UUIDType),
       },
     },
-    resolve: async (_root, { id }, context: MyContext) => {
+    resolve: async (_root, { id }, context: IPrismaContext) => {
       const { prisma } = context;
       return await prisma.user.findUnique({
         where: {
@@ -46,7 +46,7 @@ export const getByIdQueries = {
         type: new GraphQLNonNull(UUIDType),
       },
     },
-    resolve: async (_root, { id }, context: MyContext) => {
+    resolve: async (_root, { id }, context: IPrismaContext) => {
       const { prisma } = context;
       return await prisma.post.findUnique({
         where: {
@@ -62,7 +62,7 @@ export const getByIdQueries = {
         type: new GraphQLNonNull(UUIDType),
       },
     },
-    resolve: async (_root, { id }, context: MyContext) => {
+    resolve: async (_root, { id }, context: IPrismaContext) => {
       const { prisma } = context;
       return await prisma.profile.findUnique({
         where: {
