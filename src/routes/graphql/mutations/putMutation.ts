@@ -7,6 +7,7 @@ import { postType } from '../types/post.js';
 import { userType } from '../types/user.js';
 import { profileType } from '../types/profile.js';
 import { UUIDType } from '../types/uuid.js';
+import { GraphQLString } from 'graphql';
 
 export const putMutations = {
   changePost: {
@@ -64,7 +65,7 @@ export const putMutations = {
     },
   },
   subscribeTo: {
-    type: userType,
+    type: GraphQLString,
     args: {
       userId: {
         type: UUIDType,
@@ -75,7 +76,7 @@ export const putMutations = {
     },
     resolve: async (_root, { userId, authorId }, context: MyContext) => {
       const { prisma } = context;
-      return await prisma.user.update({
+      await prisma.user.update({
         where: {
           id: userId,
         },
@@ -87,6 +88,7 @@ export const putMutations = {
           },
         },
       });
+      return "Success!"
     },
   },
 };
