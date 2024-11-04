@@ -1,0 +1,92 @@
+import { MyContext } from '../index.js';
+import { ChangePostInput } from './inputs/changePosts.js';
+import { ChangeUserInput } from './inputs/changeUser.js';
+import { ChangeProfileInput } from './inputs/changeProfile.js';
+
+import { postType } from '../types/post.js';
+import { userType } from '../types/user.js';
+import { profileType } from '../types/profile.js';
+import { UUIDType } from '../types/uuid.js';
+
+export const putMutations = {
+  changePost: {
+    type: postType,
+    args: {
+      dto: {
+        type: ChangePostInput,
+      },
+      id: {
+        type: UUIDType,
+      },
+    },
+    resolve: async (_root, { dto, id }, context: MyContext) => {
+      const { prisma } = context;
+      return await prisma.post.update({
+        where: { id: id },
+        data: dto,
+      });
+    },
+  },
+  changeUser: {
+    type: userType,
+    args: {
+      dto: {
+        type: ChangeUserInput,
+      },
+      id: {
+        type: UUIDType,
+      },
+    },
+    resolve: async (_root, { dto, id }, context: MyContext) => {
+      const { prisma } = context;
+      return await prisma.user.update({
+        where: { id: id },
+        data: dto,
+      });
+    },
+  },
+  changeProfile: {
+    type: profileType,
+    args: {
+      dto: {
+        type: ChangeProfileInput,
+      },
+      id: {
+        type: UUIDType,
+      },
+    },
+    resolve: async (_root, { dto, id }, context: MyContext) => {
+      const { prisma } = context;
+      return await prisma.profile.update({
+        where: { id: id },
+        data: dto,
+      });
+    },
+  },
+  subscribeTo: {
+    type: userType,
+    args: {
+      userId: {
+        type: UUIDType,
+      },
+      authorId: {
+        type: UUIDType,
+      },
+    },
+    resolve: async (_root, { userId, authorId }, context: MyContext) => {
+      const { prisma } = context;
+      return await prisma.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          userSubscribedTo: {
+            create: {
+              authorId: authorId,
+            },
+          },
+        },
+      });
+    },
+  },
+};
