@@ -64,31 +64,4 @@ export const putMutations = {
       });
     },
   },
-  subscribeTo: {
-    type: GraphQLString,
-    args: {
-      userId: {
-        type: UUIDType,
-      },
-      authorId: {
-        type: UUIDType,
-      },
-    },
-    resolve: async (_root, { userId, authorId }, context: IPrismaContext) => {
-      const { prisma } = context;
-      await prisma.user.update({
-        where: {
-          id: userId,
-        },
-        data: {
-          userSubscribedTo: {
-            create: {
-              authorId: authorId,
-            },
-          },
-        },
-      });
-      return "Success!"
-    },
-  },
 };

@@ -51,26 +51,4 @@ export const deleteMutations = {
       });
     },
   },
-  unsubscribeFrom: {
-    type: GraphQLBoolean,
-    args: {
-      userId: {
-        type: UUIDType,
-      },
-      authorId: {
-        type: UUIDType,
-      },
-    },
-    resolve: async (_root, { userId, authorId }, context: IPrismaContext) => {
-      const { prisma } = context;
-      await prisma.subscribersOnAuthors.delete({
-        where: {
-          subscriberId_authorId: {
-            subscriberId: userId,
-            authorId: authorId,
-          },
-        },
-      });
-    },
-  },
 };

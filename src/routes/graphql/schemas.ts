@@ -16,6 +16,7 @@ import { getQueries } from './queries/getQueries.js';
 import { postMutations } from './mutations/postMutation.js';
 import { deleteMutations } from './mutations/deleteMutations.js';
 import { putMutations } from './mutations/putMutation.js';
+import { subscribeMutations } from './mutations/subscribeMutation.js';
 
 export const gqlResponseSchema = Type.Partial(
   Type.Object({
@@ -50,6 +51,7 @@ const mutationBuilder = new GraphQLObjectType({
     ...postMutations,
     ...deleteMutations,
     ...putMutations,
+    ...subscribeMutations
   }),
 });
 
