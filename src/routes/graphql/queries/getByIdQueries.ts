@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { GraphQLNonNull } from 'graphql';
 import { postType } from '../types/post.js';
 import { userType } from '../types/user.js';

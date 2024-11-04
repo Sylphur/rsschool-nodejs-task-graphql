@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { UUIDType } from '../types/uuid.js';
 import { GraphQLBoolean, GraphQLString } from 'graphql';
 import { IPrismaContext } from '../interfaces/prisma/prismaContext.js';

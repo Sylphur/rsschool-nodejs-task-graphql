@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { CreatePostInput } from './inputs/createPost.js';
 import { CreateProfileInput } from './inputs/createProfile.js';
 import { CreateUserInput } from './inputs/createUser.js';

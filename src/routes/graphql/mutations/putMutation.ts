@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { ChangePostInput } from './inputs/changePosts.js';
 import { ChangeUserInput } from './inputs/changeUser.js';
 import { ChangeProfileInput } from './inputs/changeProfile.js';

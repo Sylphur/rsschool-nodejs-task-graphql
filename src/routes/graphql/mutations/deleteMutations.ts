@@ -14,7 +14,7 @@ export const deleteMutations = {
       const { prisma } = context;
       await prisma.post.delete({
         where: {
-          id: id,
+          id: id as string,
         },
       });
     },
@@ -30,7 +30,7 @@ export const deleteMutations = {
       const { prisma } = context;
       await prisma.profile.delete({
         where: {
-          id: id,
+          id: id as string,
         },
       });
     },
@@ -46,7 +46,7 @@ export const deleteMutations = {
       const { prisma } = context;
       await prisma.user.delete({
         where: {
-          id: id,
+          id: id as string,
         },
       });
     },
